@@ -1,0 +1,13 @@
+target/
+build/
+out/
+classes/*
+.idea/
+.terraform/
+*.iml
+*.ipr
+*.iws
+*.tfplan
+*.gz
+*.keytab
+.bsp
