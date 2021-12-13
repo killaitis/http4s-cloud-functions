@@ -1,7 +1,8 @@
 package de.killaitis.http4s
 
+
 import cats.effect.IO
-import de.otto.brain.twain.http4s.utils.CloudFunctionSpec
+import de.killaitis.http4s.utils.CloudFunctionUtils
 import org.http4s._
 import org.http4s.dsl.io.{QueryParamDecoderMatcher, _}
 import org.http4s.implicits.http4sLiteralsSyntax
@@ -9,7 +10,7 @@ import org.http4s.server.Router
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class Http4sCloudFunctionSpec extends AnyFlatSpec with Matchers with CloudFunctionSpec {
+class Http4sCloudFunctionSpec extends AnyFlatSpec with Matchers with CloudFunctionUtils {
 
   import Http4sCloudFunctionSpec._
 
@@ -75,7 +76,7 @@ object Http4sCloudFunctionSpec {
     case req @ GET -> Root / "headers" =>
       Ok(s"Here comes the list of headers", req.headers)
 
-    case GET -> Root / "hal/openPodBayDoors" =>
+    case GET -> Root / "hal" / "openPodBayDoors" =>
       throw new RuntimeException("I'm sorry Dave, I'm afraid I can't do that.")
 
     case req @ POST -> Root / "length" =>

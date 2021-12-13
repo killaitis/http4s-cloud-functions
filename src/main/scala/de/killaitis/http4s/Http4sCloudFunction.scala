@@ -3,8 +3,8 @@ package de.killaitis.http4s
 import cats.effect.IO
 import cats.effect.unsafe.IORuntime
 import com.google.cloud.functions.{HttpFunction, HttpRequest, HttpResponse}
-import fs2.io.{readInputStream, writeOutputStream}
 import fs2.Stream
+import fs2.io.{readInputStream, writeOutputStream}
 import org.http4s.Status.InternalServerError
 import org.http4s.{Header, Headers, HttpApp, Method, Request, Response, Uri}
 import org.typelevel.ci.CIString
@@ -27,8 +27,7 @@ class Http4sCloudFunction(
         _         <- toResponse(httpResponse)(response)
       } yield ()
 
-    httpHandler
-      .unsafeRunSync()
+    httpHandler.unsafeRunSync()
   }
 
 

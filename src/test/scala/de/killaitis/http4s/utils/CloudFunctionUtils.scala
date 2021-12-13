@@ -1,4 +1,4 @@
-package de.otto.brain.twain.http4s.utils
+package de.killaitis.http4s.utils
 
 import com.google.cloud.functions.{HttpRequest, HttpResponse}
 import org.http4s.Uri
@@ -9,28 +9,22 @@ import java.util.Optional
 import scala.jdk.CollectionConverters._
 import scala.jdk.OptionConverters._
 
-trait CloudFunctionSpec {
+trait CloudFunctionUtils {
 
   case class TestHttpRequest(
-                         method: String = "GET",
-                         uri: Uri,
-                         headers: Map[String, String] = Map(),
-                         contentType: Option[String] = None,
-                         contentLength: Int = 0,
-                         characterEncoding: Option[String] = None,
-                         body: String = ""
-                       ) extends HttpRequest {
-
-    val javaHeaders: util.Map[String, util.List[String]] =
-      headers
-        .toList
-        .groupBy(_._1)
-        .view
-        .mapValues(group => group.map(p => p._2).asJava)
-        .toMap
-        .asJava
-
-    val javaQueryParameters: util.Map[String, util.List[String]] =
+                              method: String = "GET",
+                              uri: Uri,
+                              headers: Map[String, String] = Map(),
+                              contentType: Option[String] = None,
+                              contentLength: Int = 0,
+                              characterEncoding: Option[String] = None,
+                              body: String = ""
+                            ) extends HttpRequest {
+    override def getMethod: String = method
+    override def getUri: String = uri.toString
+    override def getPath: String = uri.path.renderString
+    override def getQuery: Optional[String] = if (uri.query.isEmpty) Optional.empty() else Optional.of(uri.query.renderString)
+    override def getQueryParameters: util.Map[String, util.List[String]] =
       uri.query.multiParams
         .view
         .mapValues(values => values.asJava)
@@ -38,20 +32,22 @@ trait CloudFunctionSpec {
         .asJava
 
     // TODO: not supported yet
-    val javaParts: util.Map[String, HttpRequest.HttpPart] = new util.HashMap
+    override def getParts: util.Map[String, HttpRequest.HttpPart] =
+      new util.HashMap[String, HttpRequest.HttpPart]
 
-    override def getMethod: String = method
-    override def getUri: String = uri.toString
-    override def getPath: String = uri.path.renderString
-    override def getQuery: Optional[String] = if (uri.query.isEmpty) Optional.empty() else Optional.of(uri.query.renderString)
-    override def getQueryParameters: util.Map[String, util.List[String]] = javaQueryParameters
-    override def getParts: util.Map[String, HttpRequest.HttpPart] = javaParts
     override def getContentType: Optional[String] = contentType.toJava
     override def getContentLength: Long = contentLength
     override def getCharacterEncoding: Optional[String] = characterEncoding.toJava
     override def getInputStream: InputStream = new ByteArrayInputStream(body.getBytes)
     override def getReader: BufferedReader = new BufferedReader(new StringReader(body))
-    override def getHeaders: util.Map[String, util.List[String]] = javaHeaders
+    override def getHeaders: util.Map[String, util.List[String]] =
+      headers
+        .toList
+        .groupBy(_._1)
+        .view
+        .mapValues(group => group.map(p => p._2).asJava)
+        .toMap
+        .asJava
   }
 
   class TestHttpResponse extends HttpResponse {
@@ -90,14 +86,9 @@ trait CloudFunctionSpec {
     override def getWriter: BufferedWriter = writer
 
     def body: String = {
-      // TODO: this is kind of dirty. :/
-      writer.close()
-      out.close()
-
+      writer.flush()
       new String(out.toByteArray)
     }
   }
 
 }
-
-
