@@ -1,8 +1,7 @@
 name := "http4s-cloud-functions"
 
-organization := "de.killaitis"
-
-version := "0.1"
+version := "0.1-SNAPSHOT"
+versionScheme := Some("semver-spec")
 
 scalaVersion := "2.13.7"
 scalacOptions += "-target:jvm-11"
