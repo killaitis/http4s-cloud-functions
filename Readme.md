@@ -1,4 +1,4 @@
-# Run your Http4s App as a Google Cloud Function
+# Run your http4s App as a Google Cloud Function
 
 ## Get started
 Add the following to your `build.sbt` file:

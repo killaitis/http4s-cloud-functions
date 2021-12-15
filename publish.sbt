@@ -13,22 +13,14 @@ ThisBuild / developers := List(
   )
 )
 
-ThisBuild / description := "Some description about your project."
+ThisBuild / description := "Run http4s Scala apps as a Google Cloud Function"
 ThisBuild / licenses := List("Apache 2" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 ThisBuild / homepage := Some(url("https://github.com/killaitis/http4s-cloud-functions"))
 
-// Remove all additional repository other than Maven Central from POM
-pomIncludeRepository := { _ => false }
-//ThisBuild / publishTo := {
-//  val nexus = "https://s01.oss.sonatype.org/"
-//  if (isSnapshot.value) Some("snapshots" at nexus + "content/repositories/snapshots")
-//  else Some("releases" at nexus + "service/local/staging/deploy/maven2")
-//}
 publishTo := sonatypePublishToBundle.value
 publishMavenStyle := true
 
+pomIncludeRepository := { _ => false }
+
 sonatypeCredentialHost := "s01.oss.sonatype.org"
 sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
-
-ThisBuild / publishConfiguration := publishConfiguration.value.withOverwrite(true)
-ThisBuild / publishLocalConfiguration := publishLocalConfiguration.value.withOverwrite(true)
