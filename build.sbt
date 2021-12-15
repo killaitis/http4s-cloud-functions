@@ -1,12 +1,12 @@
-lazy val Http4sVersion = "0.23.7"
-lazy val CloudFunctionsVersion = "1.0.4"
-lazy val ScalaTestVersion = "3.2.10"
+val Http4sVersion = "1.0.0-M30"
+val CloudFunctionsVersion = "1.0.4"
+val ScalaTestVersion = "3.2.10"
 
 ThisBuild / organization := "de.killaitis"
 ThisBuild / organizationName := "Andreas Killaitis"
 ThisBuild / organizationHomepage := Some(url("http://www.github.com/killaitis/"))
 
-ThisBuild / version := "0.4"
+ThisBuild / version := "0.4.1"
 ThisBuild / versionScheme := Some("semver-spec")
 
 lazy val root = (project in file("."))
@@ -14,7 +14,6 @@ lazy val root = (project in file("."))
     name := "http4s-cloud-functions",
 
     scalaVersion := "2.13.7",
-//    scalacOptions ++= Seq("-target:11"),
     crossScalaVersions := Seq("2.13.7", "3.1.0"),
 
     libraryDependencies ++= Seq(
