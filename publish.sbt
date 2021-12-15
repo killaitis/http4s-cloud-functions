@@ -1,7 +1,3 @@
-ThisBuild / organization := "de.killaitis"
-ThisBuild / organizationName := "Andreas Killaitis"
-ThisBuild / organizationHomepage := Some(url("http://www.github.com/killaitis/"))
-
 ThisBuild / scmInfo := Some(
   ScmInfo(
     url("https://github.com/killaitis/http4s-cloud-functions"),
@@ -30,5 +26,9 @@ ThisBuild / publishTo := {
 }
 ThisBuild / publishMavenStyle := true
 
-//ThisBuild / publishConfiguration := publishConfiguration.value.withOverwrite(true)
-//ThisBuild / publishLocalConfiguration := publishLocalConfiguration.value.withOverwrite(true)
+ThisBuild / publishTo := sonatypePublishToBundle.value
+
+ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
+
+ThisBuild / publishConfiguration := publishConfiguration.value.withOverwrite(true)
+ThisBuild / publishLocalConfiguration := publishLocalConfiguration.value.withOverwrite(true)

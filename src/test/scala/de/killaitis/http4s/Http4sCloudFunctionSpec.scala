@@ -2,13 +2,15 @@ package de.killaitis.http4s
 
 
 import cats.effect.IO
+import cats.effect.unsafe.implicits.global
 import de.killaitis.http4s.utils.CloudFunctionUtils
 import org.http4s._
 import org.http4s.dsl.io.{QueryParamDecoderMatcher, _}
-import org.http4s.implicits.http4sLiteralsSyntax
+import org.http4s.implicits._
 import org.http4s.server.Router
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+
 
 class Http4sCloudFunctionSpec extends AnyFlatSpec with Matchers with CloudFunctionUtils {
 

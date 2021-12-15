@@ -1,25 +1,31 @@
-name := "http4s-cloud-functions"
+lazy val Http4sVersion = "0.23.7"
+lazy val CloudFunctionsVersion = "1.0.4"
+lazy val ScalaTestVersion = "3.2.10"
 
-version := "0.1-SNAPSHOT"
-versionScheme := Some("semver-spec")
+ThisBuild / organization := "de.killaitis"
+ThisBuild / organizationName := "Andreas Killaitis"
+ThisBuild / organizationHomepage := Some(url("http://www.github.com/killaitis/"))
 
-scalaVersion := "2.13.7"
-scalacOptions += "-target:jvm-11"
+ThisBuild / version := "0.4"
+ThisBuild / versionScheme := Some("semver-spec")
 
-val Http4sVersion = "0.23.6"
-val CloudFunctionsVersion = "1.0.4"
-val ScalaTestVersion = "3.2.10"
+lazy val root = (project in file("."))
+  .settings(
+    name := "http4s-cloud-functions",
 
-libraryDependencies ++= Seq(
+    scalaVersion := "2.13.7",
+//    scalacOptions ++= Seq("-target:11"),
+    crossScalaVersions := Seq("2.13.7", "3.1.0"),
 
-  // Google Cloud Platform
-  "com.google.cloud.functions" % "functions-framework-api" % CloudFunctionsVersion,
+    libraryDependencies ++= Seq(
+      // Google Cloud Platform
+      "com.google.cloud.functions" % "functions-framework-api" % CloudFunctionsVersion,
 
-  // Http4s
-  "org.http4s" %% "http4s-dsl" % Http4sVersion,
-  "org.http4s" %% "http4s-server" % Http4sVersion,
+      // Http4s
+      "org.http4s" %% "http4s-dsl" % Http4sVersion,
+      "org.http4s" %% "http4s-server" % Http4sVersion,
 
-  // Testing
-  "org.scalatest" %% "scalatest" % ScalaTestVersion % Test,
-
-)
+      // Testing
+      "org.scalatest" %% "scalatest" % ScalaTestVersion % Test,
+    )
+  )

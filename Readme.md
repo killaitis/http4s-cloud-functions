@@ -3,10 +3,11 @@
 ## Get started
 Add the following to your `build.sbt` file:
 ```sbt
-libraryDependencies += "de.killaitis" %% "http4s-cloud-functions" % "1.0"
+libraryDependencies += "de.killaitis" %% "http4s-cloud-functions" % Http4sCloudFunctionsVersion
 ```
 
-You will probably also have to include the [assembly sbt plugin](https://github.com/sbt/sbt-assembly) in your `project/plugins.sbt` to create an uber jar: 
+You will probably also have to include the [assembly sbt plugin](https://github.com/sbt/sbt-assembly) in your 
+`project/plugins.sbt` to build an uber jar (`sbt assembly`): 
 
 ```sbt
 addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "1.1.0")
@@ -15,13 +16,17 @@ addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "1.1.0")
 ## Example
 ```scala
 // Your HTTP App
-val httpApp = Router("/" -> HttpRoutes.of[IO] {
-  case GET -> Root / "hello"  / name =>
-    Ok(s"Hello, $name.")
-}).orNotFound
+object MyCloudFunction {
+  val httpApp = Router("/" -> HttpRoutes.of[IO] {
+    case GET -> Root / "hello" / name =>
+      Ok(s"Hello, $name.")
+  }).orNotFound
+}
 
 // Google Java Cloud Functions need a class without constructor parameters as an entry point.
-class MyCloudFunction extends Http4sCloudFunction(httpApp)
+import cats.effect.unsafe.implicits.global
+
+class MyCloudFunction extends Http4sCloudFunction(MyCloudFunction.httpApp)
 ```
 
 ## Deployment
@@ -33,5 +38,8 @@ gcloud functions deploy my-cloudfunction \
   --runtime java11 \
   --trigger-http \
   --memory 128MB \
+  --allow-unauthenticated \
+  --project {your project name} \  
+  --region {your region} \
   ...
 ```

@@ -13,11 +13,10 @@ import scala.jdk.CollectionConverters._
 
 class Http4sCloudFunction(
                            val httpApp: HttpApp[IO],
-                           val errorHandler: Throwable => Response[IO] = e => Response[IO](status = InternalServerError).withEntity(e.getMessage),
+                           val errorHandler: Throwable => Response[IO] = Http4sCloudFunction.defaultErrorHandler,
                            val chunkSize: Int = 1024)
+                         (implicit runtime: IORuntime)
   extends HttpFunction {
-
-  implicit val runtime: IORuntime = IORuntime.global
 
   override def service(httpRequest: HttpRequest, httpResponse: HttpResponse): Unit = {
     val httpHandler =
@@ -29,7 +28,6 @@ class Http4sCloudFunction(
 
     httpHandler.unsafeRunSync()
   }
-
 
   private def fromRequest(request: HttpRequest): IO[Request[IO]] =
     for {
@@ -60,4 +58,9 @@ class Http4sCloudFunction(
       _ <- response.body.through(writeOutputStream(fos)).compile.drain
     } yield ()
 
+}
+
+object Http4sCloudFunction {
+  val defaultErrorHandler: Throwable => Response[IO] =
+    e => Response[IO](status = InternalServerError).withEntity(e.getMessage)
 }
