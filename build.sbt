@@ -6,7 +6,7 @@ ThisBuild / organization := "de.killaitis"
 ThisBuild / organizationName := "Andreas Killaitis"
 ThisBuild / organizationHomepage := Some(url("http://www.github.com/killaitis/"))
 
-ThisBuild / version := "0.4.1"
+ThisBuild / version := "0.4.2"
 ThisBuild / versionScheme := Some("semver-spec")
 
 lazy val root = (project in file("."))
