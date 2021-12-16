@@ -18,10 +18,10 @@ jobs:
       - name: Import PGP key
         env:
           PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-        run: gpg --import <(echo "$PGP_PRIVATE_KEY")
+        run: export GPG_TTY=$TTY && gpg --import <(echo "$PGP_PRIVATE_KEY")
       - name: Publish
         env:
           CI_VERSION: ${{ github.ref }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        run: sbt "; + test; + publishSigned; sonatypeBundleRelease"
+        run: export GPG_TTY=$TTY && sbt "; + test; + publishSigned; sonatypeBundleRelease"
