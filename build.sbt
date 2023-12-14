@@ -9,7 +9,8 @@ organizationHomepage := Some(url("http://www.github.com/killaitis/"))
 name := "http4s-cloud-functions"
 version := {
   val Tag = "refs/tags/(.*)".r
-  sys.env.get("CI_VERSION").collect { case Tag(tag) => tag }
+  sys.env.get("CI_VERSION")
+    .collect { case Tag(tag) => tag.stripPrefix("v") }
     .getOrElse("0.0.1-SNAPSHOT")
 }
 
