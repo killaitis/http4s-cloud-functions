@@ -14,7 +14,7 @@ ThisBuild / developers := List(
 )
 
 ThisBuild / description := "Run http4s Scala apps as a Google Cloud Function"
-ThisBuild / licenses := List("Apache 2" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+ThisBuild / licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 ThisBuild / homepage := Some(url("https://github.com/killaitis/http4s-cloud-functions"))
 
 publishTo := sonatypePublishToBundle.value

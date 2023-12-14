@@ -2,7 +2,6 @@ target/
 build/
 out/
 classes/*
-.idea/
 .terraform/
 *.iml
 *.ipr
@@ -10,4 +9,9 @@ classes/*
 *.tfplan
 *.gz
 *.keytab
+.idea/
 .bsp
+.metals/
+.vscode/
+.bloop
+metals.sbt
