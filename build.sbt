@@ -1,5 +1,5 @@
 val Http4sVersion = "0.23.24"
-val CloudFunctionsVersion = "1.0.4"
+val CloudFunctionsVersion = "1.1.0"
 val ScalaTestVersion = "3.2.17"
 
 organization := "de.killaitis"
