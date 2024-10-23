@@ -17,7 +17,7 @@ version := {
 versionScheme := Some("semver-spec")
 
 scalaVersion := "2.13.14"
-crossScalaVersions := Seq(scalaVersion.value, "3.3.3")
+crossScalaVersions := Seq(scalaVersion.value, "3.3.4")
 
 libraryDependencies ++= Seq(
   // Google Cloud Platform
