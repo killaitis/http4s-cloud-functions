@@ -16,7 +16,7 @@ version := {
 
 versionScheme := Some("semver-spec")
 
-scalaVersion := "2.13.15"
+scalaVersion := "2.13.16"
 crossScalaVersions := Seq(scalaVersion.value, "3.3.4")
 
 libraryDependencies ++= Seq(
