@@ -1,4 +1,4 @@
-val Http4sVersion = "0.23.28"
+val Http4sVersion = "0.23.30"
 val CloudFunctionsVersion = "1.1.4"
 val ScalaTestVersion = "3.2.19"
 
@@ -16,7 +16,7 @@ version := {
 
 versionScheme := Some("semver-spec")
 
-scalaVersion := "2.13.15"
+scalaVersion := "2.13.16"
 crossScalaVersions := Seq(scalaVersion.value, "3.3.4")
 
 libraryDependencies ++= Seq(

@@ -23,6 +23,9 @@ jobs:
           java-version: '21'
           cache:        'sbt'
 
+      - name: Set up SBT
+        uses: sbt/setup-sbt@v1
+  
       - name: Launch Scala Steward
         uses: scala-steward-org/scala-steward-action@v2
         with:

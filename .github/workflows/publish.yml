@@ -11,15 +11,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK 11
+      
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '11'
-          distribution: 'adopt'
+          distribution: 'corretto'
+          java-version: '21'
+          cache:        'sbt'
+
+      - name: Set up SBT
+        uses: sbt/setup-sbt@v1
+            
       - name: Import PGP key
         env:
           PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
         run: gpg --import <(echo "$PGP_PRIVATE_KEY")
+        
       - name: Publish
         env:
           CI_VERSION: ${{ github.ref }}
